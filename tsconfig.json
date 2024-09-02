@@ -1,0 +1,13 @@
+{
+    "extends": "@tsconfig/node20/tsconfig.json",
+
+
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "forceConsistentCasingInFileNames": true, //to avoid problems with upper and lower case file na,es
+   
+  },
+  "include":["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

@@ -1,0 +1,50 @@
+# Typescript
+npm install typescript ts-node @types/node @tsconfig/node20 --save-dev 
+create tscofig.json file : code tscofig.json
+
+# Jest
+npm install jest ts-jest @types/jest --save-dev
+create jest.config.js file : code jest.config.js
+add these scripts to package.json 
+    "build": "tsc",
+    "test": "jest",
+    "test:watch": "jest --watch",
+create tests/tscofig.json file : code tests/tscofig.json # so typescript can be applied to all files in our  tests folder
+
+# Eslint
+install eslint in vscode extension
+npm init @eslint/config@latest
+npm install eslint-pluin-jest --save-dev
+
+# Prettier code formatter
+npm install --save-dev eslint-plugin-prettier eslint-config-Prettier
+npm install --save-dev --save-exact prettier
+add this scripts to package.json : "lint": "eslint"
+
+# Check Pull request for lintin and testing errors
+define workflow : contains jobs which define the steps that definethe task to be performed
+trigger events: each workflow is triggered by an event such as pushes to main, PR, issues etc
+run actions: are individualtasks that can be executed as a part of workflow
+
+create .github/workflows/LintAndTestWorkflow.yml
+name: Lint and Test Workflow
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  lint-and-test:
+    name: Lint and Test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.9]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run test
