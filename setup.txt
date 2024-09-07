@@ -1,50 +1,63 @@
-# Typescript
+# Typescript Donny
 npm install typescript ts-node @types/node @tsconfig/node20 --save-dev 
-create tscofig.json file : code tscofig.json
+create tscofig.json file : code tsconfig.json
 
 # Jest
 npm install jest ts-jest @types/jest --save-dev
-create jest.config.js file : code jest.config.js
+npx ts-jest config:init
+//create jest.config.js file : code jest.config.js
 add these scripts to package.json 
     "build": "tsc",
     "test": "jest",
     "test:watch": "jest --watch",
-create tests/tscofig.json file : code tests/tscofig.json # so typescript can be applied to all files in our  tests folder
+create tests/tscofig.json file : code tests/tscofig.json  # so typescript can be applied to all files in our  tests folder
 
 # Eslint
 install eslint in vscode extension
 npm init @eslint/config@latest
-npm install eslint-pluin-jest --save-dev
+npm install eslint-plugin-jest --save-dev
+Linting is the automated checking of your source code for programmatic and stylistic errors.
+This is done by using a lint tool (otherwise known as linter). A lint tool is a basic static code analyzer.
 
 # Prettier code formatter
-npm install --save-dev eslint-plugin-prettier eslint-config-Prettier
+npm install --save-dev eslint-plugin-prettier eslint-config-prettier
+# eslint-config-prettier: Turns off all rules that are unnecessary or might conflict with Prettier.
 npm install --save-dev --save-exact prettier
-add this scripts to package.json : "lint": "eslint"
+add this script to package.json : "lint": "eslint"
 
-# Check Pull request for lintin and testing errors
+# Check Pull request for lintinG and testing errors
 define workflow : contains jobs which define the steps that definethe task to be performed
 trigger events: each workflow is triggered by an event such as pushes to main, PR, issues etc
 run actions: are individualtasks that can be executed as a part of workflow
 
-create .github/workflows/LintAndTestWorkflow.yml
-name: Lint and Test Workflow
-on:
-  pull_request:
-    branches:
-      - main
-jobs:
-  lint-and-test:
-    name: Lint and Test
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [20.9]
-    steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-      - run: npm ci
-      - run: npm run lint
-      - run: npm run test
+create code .github/workflows/LintAndTestWorkflow.yml
+
+# Nodemon
+npm install nodemon dotenv-cli --save-dev
+create nodemon.json file
+add this script to package.json : "dev": "dotenv -- nodemon",
+
+# Sequelize MySQL
+search docker mysql on google
+install : docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag
+sustiyute the variables : docker run --name mysql-db -p 3306:3306 -e MYSQL_ROOT_PASSWORD=secret -d mysql:latest
+
+# tsconfig options and their meanings
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "_version": "20.1.0",
+
+  "compilerOptions": {
+    "strictPropertyInitialization": false, /*Tells typescript to check that all properties of a class are initialized in the constructor.*/
+    "lib": ["es2023"],
+    "module": "node16", /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', 'es2020', or 'esnext'. */
+    "target": "es2022", /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+
+    "strict": true, /* Enable all strict type-checking options*/
+    "esModuleInterop": true,
+    "skipLibCheck": true, /*Skip type checking all .d.ts files*/  
+    "moduleResolution": "node16"
+  }
+}
+
+https://github.com/aionic-org/aionic-core/blob/master/package.json-- learn good pratice

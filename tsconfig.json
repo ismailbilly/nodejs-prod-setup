@@ -3,10 +3,12 @@
 
 
   "compilerOptions": {
+  //  "strictPropertyInitialization": false, /*Tells typescript to check that all properties of a class are initialized in the constructor.*/
     "outDir": "./dist",
     "rootDir": "./src",
-    "forceConsistentCasingInFileNames": true, //to avoid problems with upper and lower case file na,es
-   
+    "forceConsistentCasingInFileNames": true, /*to avoid problems with upper and lower case file na,es */
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include":["src/**/*"],
   "exclude": ["node_modules", "dist"]
