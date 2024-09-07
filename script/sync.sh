@@ -3,7 +3,7 @@
 # Synchronize with remote master
 
 git fetch
-git checkout master
+git checkout main
 git pull
-rm -rf node_modules
-yarn install
+# rm -rf node_modules
+# yarn install
